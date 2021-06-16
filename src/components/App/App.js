@@ -1,9 +1,10 @@
 import Main from '../Main/Main';
 import './App.css';
+import { Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className='body'>
+    <div className='app'>
       <Main />
     </div>
   );
