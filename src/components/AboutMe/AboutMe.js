@@ -3,7 +3,7 @@ import studentPic from '../../images/student.png';
 
 function AboutMe() {
   return(
-    <section className="aboutme">
+    <section className="aboutme" id="student">
       <h2 className="aboutme__heading">Студент</h2>
       <div className="aboutme-info">
         <div className="aboutme-info__wrapper">
