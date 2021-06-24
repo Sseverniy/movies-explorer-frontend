@@ -5,13 +5,11 @@ import Tech from '../Tech/Tech';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
-import Header from '../Header/Header';
 
 
-function Main({loggedIn}) {
+function Main() {
   return(
     <>
-      <Header loggedIn={loggedIn}/>
       <Promo />
       <AboutProject />
       <Tech />

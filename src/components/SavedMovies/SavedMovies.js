@@ -1,13 +1,13 @@
 import React from 'react';
-import "./Movies.css";
+import "./SavedMovies.css";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-function Movies() {
+function SavedMovies() {
   return (
     <>
-      <section className="movies">
+      <section className="saved-movies">
         <SearchForm />
         <MoviesCardList />
       </section>
@@ -16,4 +16,4 @@ function Movies() {
   );
 }
 
-export default Movies;
+export default SavedMovies;

@@ -1,7 +1,6 @@
 .about-project {
   max-width: 100%;
-  height: 608px;
-  padding: 110px 70px 110px 70px;
+  padding: 110px 0;
 }
 
 .about-project__heading {
@@ -22,9 +21,13 @@
 }
 
 .about-project__description {
-  margin-top: 70px;
+  margin-top: 54px;
   width: 100%;
   list-style: none;
+}
+
+.about-project__description:nth-of-type(2n) {
+  margin-left: 40px;
 }
 
 .about-project__title {
@@ -43,15 +46,15 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  max-width: 30vw;
-  margin-top: 22px;
+  max-width: 32vw;
+  margin-top: 26px;
   margin-bottom: 0;
 }
 
 .about-project__scale {
   display: grid;
   grid-template-columns: 228px auto;
-  margin-top: 110px;
+  margin-top: 96px;
 }
 
 .about-project__scale-line {
@@ -81,5 +84,5 @@
   line-height: 17px;
   text-align: center;
   color: #A0A0A0;
-  margin: 14px 0 0;
+  margin: 0;
 }

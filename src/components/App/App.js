@@ -1,16 +1,17 @@
 import React from 'react';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
-// import Header from '../Header/Header';
+import Header from '../Header/Header';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 
 function App() {
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
 
   function goBack() {
@@ -18,14 +19,14 @@ function App() {
   }
 
   function changeLoggedIn() {
-    console.log("Выходим из профиля!");
+    console.log("Все работает!");
     setLoggedIn(!loggedIn);
   }
 
 
   return (
     <div className='app'>
-      {/* <Header /> */}
+      <Header loggedIn={loggedIn}/>
       <Switch>
         <Route exact path="/">
           <Main 
@@ -35,7 +36,7 @@ function App() {
           <Movies />
         </Route>
         <Route path="/saved-movies">
-          <p>Saved Movies</p>
+          <SavedMovies />
         </Route>
         <Route path="/profile">
           <Profile onExit={changeLoggedIn}/>
@@ -44,7 +45,7 @@ function App() {
           <Register/>
         </Route>
         <Route path="/signin">
-          <Login/>
+          <Login onLogin={changeLoggedIn}/>
         </Route>
         <Route path="/not-found">
           <NotFoundPage goBack={goBack}/>

@@ -1,7 +1,7 @@
 .aboutme {
   max-width: 100%;
   margin: 0 auto;
-  padding: 110px 70px 100px 70px;
+  padding: 110px 0 100px 0;
 }
 
 .aboutme__heading {
@@ -45,11 +45,12 @@
   font-size: 14px;
   line-height: 22px;
   margin: 26px 0 0;
+  max-width: 39vw;
 }
 
 .aboutme-info__links {
   padding: 0;
-  margin: 99px 0 0;
+  margin: 97px 0 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;

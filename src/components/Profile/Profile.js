@@ -1,16 +1,15 @@
 import React from 'react';
 import "./Profile.css";
-import Header from "../Header/Header";
-import {Redirect} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 function Profile({onExit}) {
+  const history = useHistory();
   function logOut() {
     onExit();
-    <Redirect exact to="/"/>
+    history.push("/");
   }
   return (
     <>
-      <Header />
       <div className="profile">
         <h2 className="profile__heading">Привет, Виталий!</h2>
         <form className="profile__form">

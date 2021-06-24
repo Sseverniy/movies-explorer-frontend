@@ -1,16 +1,19 @@
 import React from "react";
 import "./Navigation.css";
-import {Link, Redirect, useLocation, NavItem} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import profileLogo from "../../images/profile-logo.svg"
 
 function Navigation({loggedIn}) {
   const location = useLocation();
-  console.log(location.pathname);
+  console.log(loggedIn);
+  React.useEffect(()=> {
+
+  },[loggedIn]);
   return (
-    loggedIn ? (
+    !loggedIn ? (
     <div className="navigate__wrapper">
-      <button className="navigate__register-button button">Регистрация</button>
-      <button className="navigate__login-button button">Войти</button>
+      <Link to="/signup" className="navigate__register-link link">Регистрация</Link>
+      <Link to="/signin" className="navigate__login-link link">Войти</Link>
     </div>
     ) : location.pathname === '/movies' || location.pathname === '/saved-movies' || location.pathname === '/profile' ? 
     (

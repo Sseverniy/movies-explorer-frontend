@@ -15,7 +15,7 @@ function Portfolio() {
         </li>
         <li className="portfolio__link-item">
           <a className="portfolio__link" href="https://github.com/Sseverniy/how-to-learn" target="_blank" rel="noreferrer">
-            Адапативный сайт
+            Адаптивный сайт
             <img className="portfolio__link-arrow" alt="Стрелка ссылки" src={linkArrow}/>
           </a>
         </li>

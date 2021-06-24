@@ -11,13 +11,13 @@ function Register() {
       />
       <form className="sign-form">
         <label for="user-name" className="sign-form__label">Имя
-          <input id="user-name" className="sign-form__input" type="text"></input>
+          <input id="user-name" className="sign-form__input" type="text" minLength="2" maxLength="40" required></input>
         </label>
         <label for="user-email" className="sign-form__label">E-mail
-          <input id="user-email" className="sign-form__input" type="email"></input>
+          <input id="user-email" className="sign-form__input" type="email" required></input>
         </label>
         <label for="user-password" className="sign-form__label sign-form__error">Пароль
-          <input id="user-password" className="sign-form__input sign-form__error" type="password"></input>
+          <input id="user-password" className="sign-form__input sign-form__error" type="password" minLength="6" required></input>
         </label>
         <span className="error">Что-то пошло не так...</span>
       </form>
