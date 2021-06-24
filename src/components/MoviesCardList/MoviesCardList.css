@@ -1,0 +1,22 @@
+.movies-list {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.movies__more-button {
+  margin: 50px auto 0;
+  display: block;
+  width: 320px;
+  height: 36px;
+  background: #f4f4f4;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #000000;
+  padding: 10px 0;
+  border-style: none;
+}

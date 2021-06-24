@@ -1,21 +1,18 @@
+import React from 'react';
 import './Header.css';
-import logo from '../../images/logo.svg'
-// import { Redirect } from 'react-router-dom';
+import Navigation from '../Navigation/Navigation';
+import logo from '../../images/logo.svg';
+import {useLocation} from "react-router-dom";
 
-function Header() {
-  // function redirectHeader() {
-  //   return console.log(';adsd');
-  // }
+function Header({loggedIn}) {
+  const location = useLocation();
 
   return (
+    (location.pathname === "/signin" || location.pathname === "/signout" || location.pathname === "/notFound") ?
+    '' :
     <header className="header">
-      <img className="header__logo" alt="Логотип сайта" src={logo} 
-      // onClick={()=> redirectHeader()} 
-      />
-      <div className="header__wrapper">
-        <button className="header__register-button button">Регистрация</button>
-        <button className="header__login-button button">Войти</button>
-      </div>
+      <img className="header__logo" alt="Логотип сайта" src={logo}/>
+      <Navigation loggedIn={loggedIn}/>
     </header>
   );
 }

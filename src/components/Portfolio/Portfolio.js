@@ -1,3 +1,4 @@
+import React from 'react';
 import './Portfolio.css';
 import linkArrow from "../../images/arrow.svg";
 
