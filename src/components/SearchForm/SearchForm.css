@@ -29,6 +29,9 @@
 
 .search__input:focus {
   outline: none;
+  border-color: #3456f3;
+  opacity: 1;
+  color: #000000;
 }
 
 .search__button {
