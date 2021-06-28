@@ -28,10 +28,23 @@
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-style: normal;
+  max-width: 100%;
 }
 
 #root {
   margin: 0 auto;
-  width: 100%;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 1180px)  {
+  .app {
+    margin: 0 20px;
+  }
+}
+
+@media screen and (max-width: 320px)  {
+  .app {
+    margin: 0 14px;
+  }
 }
 

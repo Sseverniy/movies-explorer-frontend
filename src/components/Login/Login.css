@@ -41,7 +41,7 @@
   border-radius: 8px;
   border: none;
   outline: none;
-  font-weight: normal;
+  font-weight: 500;
   font-size: 13px;
   line-height: 16px;
   color: #000000;
@@ -101,4 +101,22 @@
   text-align: center; 
   color: #3456F3;
   text-decoration: none;
+}
+
+@media screen and (max-width:450px) {
+  .sign-form {
+    margin-top: 80px;
+  }
+  .sign__submit-button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .sign__paragraph {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .sign__signin-link {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

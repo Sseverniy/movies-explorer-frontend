@@ -50,3 +50,12 @@
   background-color: #2BE080;
 }
 
+@media screen and (max-width:768px) {
+  .checkbox {
+    margin: 38px auto 0;
+  }
+  .checkbox__visible-part {
+    margin-left: 12px;
+  }
+}
+

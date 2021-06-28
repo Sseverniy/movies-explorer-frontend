@@ -24,7 +24,7 @@
   line-height: 13px;
   padding-top: 17px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid #e8e8e8;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,11 +42,15 @@
 .profile__input {
   border: none;
   width: 100%;
-  max-width: 300px;
+  max-width: 250px;
   text-align: right;
-  background: #FAFAFA;
+  background: #fafafa;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: right;
+  color: #000000;
 }
-
 
 .profile__edit-button {
   font-weight: normal;
@@ -55,7 +59,7 @@
   text-align: center;
   color: #000000;
   border: none;
-  background: #FAFAFA;
+  background: #fafafa;
   cursor: pointer;
 }
 
@@ -64,9 +68,9 @@
   font-size: 13px;
   line-height: 16px;
   text-align: center;
-  color: #EE3465;
+  color: #ee3465;
   margin: 16px 0 0;
   border: none;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   cursor: pointer;
 }

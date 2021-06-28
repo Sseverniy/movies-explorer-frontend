@@ -3,15 +3,25 @@ import './Header.css';
 import Navigation from '../Navigation/Navigation';
 import {useLocation, Link} from "react-router-dom";
 
-function Header({loggedIn}) {
+function Header({loggedIn, openBurgerMenu, burgerMenu}) {
   const location = useLocation();
 
   return (
-    (location.pathname === "/signin" || location.pathname === "/signout" || location.pathname === "/notFound") ?
-    '' :
+    (location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/not-found") ?
+    '' : location.pathname === "/" ?
     <header className="header">
       <Link exact to="/" className="header__logo"/>
-      <Navigation loggedIn={loggedIn}/>
+      <Navigation loggedIn={loggedIn} burgerMenu={burgerMenu}/>
+    </header> :
+    burgerMenu ?
+    <header className="header">
+      <Link exact to="/" className="header__logo"/>
+      <button className="header__burger-button" onClick={openBurgerMenu}/>
+    </header> :
+    <header className="header">
+      <Link exact to="/" className="header__logo"/>
+      <button className="header__burger-button" onClick={openBurgerMenu}/>
+      <Navigation loggedIn={loggedIn} burgerMenu={burgerMenu}/>
     </header>
   );
 }

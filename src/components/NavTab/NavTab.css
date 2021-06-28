@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   width: 308px;
-  margin-top: 150px;
+  margin-bottom: 30px;
 }
 
 .nav-tab__link {
@@ -21,4 +21,16 @@
   max-width: 96px;
   border-radius: 10px;
   text-align: center;
+}
+
+@media screen and (max-width: 500px)  {
+  .nav-tab__link {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 320px)  {
+  .nav-tab__link {
+    padding: 10px 15.5px;
+  }
 }

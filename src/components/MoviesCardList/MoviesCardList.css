@@ -3,10 +3,14 @@
   display: flex;
   flex-wrap: wrap;
   align-content: center;
+  justify-content: space-around;
+  /* display: grid;
+  grid-template-columns: repeat(4, 1fr); */
+  margin: 45px 0 0 0;
 }
 
 .movies__more-button {
-  margin: 50px auto 0;
+  margin: 80px auto 0;
   display: block;
   width: 320px;
   height: 36px;

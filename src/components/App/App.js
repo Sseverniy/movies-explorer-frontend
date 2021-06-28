@@ -7,11 +7,13 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import './App.css';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [burgerMenu, setBurgerMenu] = React.useState(false);
   const history = useHistory();
 
   function goBack() {
@@ -23,10 +25,15 @@ function App() {
     setLoggedIn(!loggedIn);
   }
 
+  function toggleBurgerMenu() {
+    setBurgerMenu(!burgerMenu);
+  }
+
 
   return (
     <div className='app'>
-      <Header loggedIn={loggedIn}/>
+      <Header loggedIn={loggedIn} openBurgerMenu={toggleBurgerMenu} burgerMenu={burgerMenu}/>
+      <BurgerMenu burgerMenu={burgerMenu} closeBurgerMenu={toggleBurgerMenu}/>
       <Switch>
         <Route exact path="/">
           <Main 

@@ -16,36 +16,20 @@
   height: 38px;
 }
 
-.header__register-button {
+.header__burger-button {
+  background-image: url(../../images/burger-icon.svg);
+  border: none;
+  width: 40px;
+  height: 43px;
+  background-repeat: no-repeat;
+  background-position: center;
   background-color: transparent;
-  font-style: normal;
-  padding: 0;
-  margin-right: 30px;
-}
-
-.header__login-button {
-  background-color: #3456F3;
-  color: #FFFFFF;
-  margin: 0;
-  padding-top: 8px;
-  padding-left: 20px;
-  padding-bottom: 8px;
-  padding-right: 20px;
-  border-radius: 3px;
-}
-
-.button {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  border-style: none;
-}
-
-.button:hover {
   cursor: pointer;
+  display: none;
 }
 
-.button:focus {
-  outline: none;
+@media (max-width: 768px) {
+  .header__burger-button {
+    display: block;
+  }
 }

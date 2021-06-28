@@ -51,3 +51,10 @@
 .search__button:hover {
   cursor: pointer;
 }
+
+@media screen and (max-width:768px) {
+  .search {
+    flex-direction: column;
+    padding: 0 0 57px;
+  }
+}
