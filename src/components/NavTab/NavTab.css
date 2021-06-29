@@ -1,0 +1,36 @@
+.nav-tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 308px;
+  margin-bottom: 30px;
+}
+
+.nav-tab__link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  background-color: #E8E8E8;
+  color: #000000;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  max-width: 96px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+@media screen and (max-width: 500px)  {
+  .nav-tab__link {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 320px)  {
+  .nav-tab__link {
+    padding: 10px 15.5px;
+  }
+}

@@ -1,0 +1,48 @@
+.menu {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  background-color: rgba(0,0,0,0.3);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: -520px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu_opened {
+  visibility: visible;
+  right: 0;
+  opacity: 1;
+}
+
+.menu__wrapper {
+  width: 520px;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.menu__close-button {
+  width: 23px;
+  height: 23px;
+  padding: 0;
+  margin: 29px 27px 0 0;
+  border: none;
+  outline: none;
+  align-self: flex-end;
+  box-sizing: border-box;
+  background-image: url(../../images/menu-button.svg);
+  background-color: transparent;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
