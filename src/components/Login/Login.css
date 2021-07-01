@@ -1,4 +1,4 @@
-.sign-container {
+.login-container {
   max-width: 396px;
   width: 100%;
   height: 100vh;
@@ -9,7 +9,7 @@
   flex-direction: column;
 }
 
-.sign-form {
+.login-form {
   margin: 40px 0 69px;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@
   height: 266px;
 }
 
-.sign-form__label {
+.login-form__label {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -30,11 +30,11 @@
   margin-top: 20px;
 }
 
-.sign-form__label:first-of-type {
+.login-form__label:first-of-type {
   margin: 0;
 }
 
-.sign-form__input {
+.login-form__input {
   max-width: 100%;
   padding: 15px;
   background: #f4f4f4;
@@ -48,15 +48,15 @@
   margin: 10px 0 0;
 }
 
-.sign-form__input:last-of-type {
+.login-form__input:last-of-type {
   margin-bottom: 0;
 }
 
-.sign-form__input:focus {
+.login-form__input:focus {
   border: 2px solid #3456f3;
 }
 
-.sign-form__error {
+.login-form__label_error {
   color: #ee3465;
 }
 
@@ -68,7 +68,7 @@
   margin: 10px 0 0;
 }
 
-.sign__submit-button {
+.login__submit-button {
   width: 100%;
   background: #3456F3;
   border-radius: 3px;
@@ -82,11 +82,16 @@
   cursor: pointer;
 }
 
-.sign__wrapper {
+.login__submit-button_invalid {
+  background: #a0a0a0;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.login__wrapper {
   margin: 16px 0 0;
 }
 
-.sign__paragraph {
+.login__paragraph {
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
@@ -94,7 +99,7 @@
   color: #A0A0A0;
 }
 
-.sign__signin-link {
+.login__signin-link {
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
@@ -104,18 +109,18 @@
 }
 
 @media screen and (max-width:450px) {
-  .sign-form {
+  .login-form {
     margin-top: 80px;
   }
-  .sign__submit-button {
+  .login__submit-button {
     font-size: 12px;
     line-height: 15px;
   }
-  .sign__paragraph {
+  .login__paragraph {
     font-size: 12px;
     line-height: 15px;
   }
-  .sign__signin-link {
+  .login__loginin-link {
     font-size: 12px;
     line-height: 15px;
   }

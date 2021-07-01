@@ -55,7 +55,7 @@
   border: 2px solid #3456f3;
 }
 
-.sign-form__error {
+.sign-form__label_error {
   color: #ee3465;
 }
 
@@ -79,6 +79,11 @@
   color: #FFFFFF;
   height: 45px;
   cursor: pointer;
+}
+
+.sign__submit-button_invalid {
+  background: #a0a0a0;
+  color: rgba(0, 0, 0, 0.2);
 }
 
 .sign__wrapper {
