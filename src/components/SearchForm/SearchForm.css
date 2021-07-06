@@ -46,10 +46,12 @@
   background-image: url(../../images/search-icon.svg);
   background-position: center;
   background-repeat: no-repeat;
+  transition: all 0.1s linear;
+  cursor: pointer;
 }
 
 .search__button:hover {
-  cursor: pointer;
+  opacity: 0.8;
 }
 
 @media screen and (max-width:768px) {

@@ -5,7 +5,6 @@ import profileLogo from "../../images/profile-logo.svg"
 
 function Navigation({loggedIn, burgerMenu, closeBurgerMenu}) {
   const location = useLocation();
-  console.log(burgerMenu);
   return (
     location.pathname === "/" ? (
     <div className="navigate__wrapper">
@@ -16,7 +15,7 @@ function Navigation({loggedIn, burgerMenu, closeBurgerMenu}) {
     '': burgerMenu ? 
     <>
       <div className="navigate__wrapper navigate__wrapper_burger">
-        <Link exact to="/" className="navigate__link" >Главная</Link>
+        <Link to="/" className="navigate__link" >Главная</Link>
         <Link to="/movies" className="navigate__link">Фильмы</Link>
         <Link to="/saved-movies" className="navigate__link">Сохраненные фильмы</Link>
       </div>

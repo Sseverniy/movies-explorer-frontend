@@ -10,16 +10,16 @@ function Header({loggedIn, openBurgerMenu, burgerMenu}) {
     (location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/not-found") ?
     '' : location.pathname === "/" ?
     <header className="header">
-      <Link exact to="/" className="header__logo"/>
+      <Link to="/" className="header__logo" />
       <Navigation loggedIn={loggedIn} burgerMenu={burgerMenu}/>
     </header> :
     burgerMenu ?
     <header className="header">
-      <Link exact to="/" className="header__logo"/>
+      <Link to="/" className="header__logo" />
       <button className="header__burger-button" onClick={openBurgerMenu}/>
     </header> :
     <header className="header">
-      <Link exact to="/" className="header__logo"/>
+      <Link to="/" className="header__logo" />
       <button className="header__burger-button" onClick={openBurgerMenu}/>
       <Navigation loggedIn={loggedIn} burgerMenu={burgerMenu}/>
     </header>

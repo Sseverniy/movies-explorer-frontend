@@ -7,22 +7,9 @@ import {Link, useHistory} from "react-router-dom";
 
 function Register({signIn}) {
   const history = useHistory();
-  // const [name, setName] = React.useState('');
-  // const [email, setEmail] = React.useState('');
-  // const [password, setPassword] = React.useState('');
   const { values, handleChange, errors, isValid } = useFormHook();
 
-  const [registerSuccess, setRegisterSuccess] = React.useState(false);
-
-  // function handleNameChange(e) {
-  //   setName(e.target.value);
-  // }
-  // function handleEmailChange(e) {
-  //   setEmail(e.target.value);
-  // }
-  // function handlePasswordChange(e) {
-  //   setPassword(e.target.value);
-  // }
+  // const [registerSuccess, setRegisterSuccess] = React.useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,8 +17,8 @@ function Register({signIn}) {
       .then((res)=>{
         if(res.statusCode !== 400){
           console.log('Вы успешно зарегистрировались!');
-          setRegisterSuccess(true);
-          signIn();
+          // setRegisterSuccess(true);
+          signIn(values);
           history.push('/movies');
         } else {
           console.log('Что-то пошло не так! Попробуйте ещё раз.');
@@ -42,23 +29,22 @@ function Register({signIn}) {
       })
   }
 
-
   return (
     <div className="sign-container">
       <SignHeader 
         headerText="Добро пожаловать!"
       />
-      <form className="sign-form">
+      <form className="sign-form" noValidate>
         <label htmlFor="user-name" className={`sign-form__label ${errors.name ? 'sign-form__label_error' :''}`}>Имя
-          <input onChange={handleChange} value={values.name} name="name" id="user-name" className="sign-form__input" type="text" minLength="2" maxLength="40" required></input>
+          <input onChange={handleChange} value={values.name || ''} name="name" id="user-name" className="sign-form__input" type="text" minLength="2" maxLength="40" required></input>
         </label>
         <span className="error">{errors.name || ''}</span>
         <label htmlFor="user-email" className={`sign-form__label ${errors.name ? 'sign-form__label_error' :''}`}>E-mail
-          <input onChange={handleChange} value={values.email} name="email" id="user-email" className="sign-form__input" type="email" required></input>
+          <input onChange={handleChange} value={values.email || ''} name="email" id="user-email" className="sign-form__input" type="email" required></input>
         </label>
         <span className="error">{errors.email || ''}</span>
         <label htmlFor="user-password" className={`sign-form__label ${errors.name ? 'sign-form__label_error' :''}`}>Пароль
-          <input onChange={handleChange} value={values.password} name="password" id="user-password" className="sign-form__input" type="password" minLength="6" required></input>
+          <input onChange={handleChange} value={values.password || ''} name="password" id="user-password" className="sign-form__input" type="password" minLength="6" required></input>
         </label>
         <span className="error">{errors.password || ''}</span>
       </form>
