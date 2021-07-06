@@ -34,6 +34,13 @@ export const login = ({email, password}) => {
       return Promise.reject(`При авторизации пользователя произошла ошибка со статусом ${res.status}`);
     }
   })
+  .then((data) => {
+    if (data.token){
+      console.log('Токен записывается');
+      localStorage.setItem('jwt', data.token);
+      return data;
+    }
+  })
 }
 
 export const getUserInfo = (token) => {
@@ -76,3 +83,69 @@ export const updateUserInfo = (token, data) => {
   })
 }
 
+export const saveMovie = (token, data) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      country: data.country,
+      director: data.director,
+      duration: data.duration,
+      year: data.year,
+      description: data.description,
+      image: data.image,
+      trailer: data.trailer,
+      thumbnail: data.thumbnail,
+      nameRU: data.nameRU,
+      nameEN: data.nameEN,
+      movieId: data.movieId,
+    })
+  })
+  .then((res) => {
+    if(res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`При сохранении фильма произошла ошибка со статусом ${res.status}`);
+    }
+  })
+}
+
+export const removeMovie = (token, movieId) => {
+  return fetch(`${BASE_URL}/movies/${movieId}`,{
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+  })
+  .then((res) => {
+    if(res.status === 200){
+      return res.json();
+    } else {
+      return Promise.reject(`При удалении фильма произошла ошибка со статусом ${res.status}`);
+    }
+  })
+}
+
+export const getSavedMovies = (token) => {
+  return fetch(`${BASE_URL}/movies`,{
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+  })
+  .then((res) => {
+    if(res.status === 200){
+      return res.json();
+    } else {
+      return Promise.reject(`При удалении фильма произошла ошибка со статусом ${res.status}`);
+    }
+  })
+}
