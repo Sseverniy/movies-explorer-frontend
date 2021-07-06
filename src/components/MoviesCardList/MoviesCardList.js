@@ -48,13 +48,25 @@ function MoviesCardList({movies, checkMovies, savedMovies, changePreloaderStatus
   //   checkWidth();
   // }, []);
 
+  // React.useEffect(()=>{
+  //   debugger
+  //   if (currentList.length> 3) {
+  //     setShowMoreButton(true);
+  //   } else {
+  //     setShowMoreButton(false);
+  //   }
+  // }, [currentList, location.pathname]);
   React.useEffect(()=>{
-    if (currentList.length> 3) {
-      setShowMoreButton(true);
+    if(location.pathname === "/saved-movies") {
+      if (savedMovies.length > 3) {
+        setShowMoreButton(true);
+      } else {
+        setShowMoreButton(false);
+      }
     } else {
-      setShowMoreButton(false);
+      setShowMoreButton(currentList.length >3 ? true : false);
     }
-  }, [currentList]);
+  }, [currentList, location.pathname]);
 
   React.useEffect(()=>{
     setMoviesList();
@@ -73,10 +85,11 @@ function MoviesCardList({movies, checkMovies, savedMovies, changePreloaderStatus
         location.pathname === "/movies" ? 
           currentList.map((movie)=>{
             let isSaved = false;
-            const isMovieSaved = savedMovies.filter((card) => {if ((card.nameRU === movie.nameRU) && (currentUser._id === card.owner)) {return card} })
+            const isMovieSaved = savedMovies.filter((card) => {if (card.nameRU === movie.nameRU) {return card} })
             if (isMovieSaved.length > 0) {
               isSaved = true;
             }
+
             return <MoviesCard key={movie.movieId} isSaved={isSaved} savedMovies={savedMovies} checkMovies={checkMovies} movie={movie} changePreloaderStatus={changePreloaderStatus} saveMovie={saveMovie} deleteMovie={deleteMovie}/>
           }) : 
           checkOwner.length >0 ?

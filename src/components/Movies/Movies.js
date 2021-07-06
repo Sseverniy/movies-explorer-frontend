@@ -26,8 +26,8 @@ function Movies({movies, checkMovies, savedMovies, cardCounter, cardCounterMore,
       localStorage.removeItem("movies");
     }
     else {
-      setError('')
-      setLoading(true)
+      setError('');
+      setLoading(true);
       getAllMovies()
         .then((res) => {
           const chosenMovies = searchMoviesByKeywords(res, keywords, duration);
