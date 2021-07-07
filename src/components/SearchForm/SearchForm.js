@@ -5,7 +5,8 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 function SearchForm({setAllMovies}) {
   const [searchValue, setSearchValue] = React.useState('');
   const [duration, setDuration] = React.useState(false);
-  function getNeededMovies() {
+  function getNeededMovies(e) {
+    e.preventDefault();
     const keywords = searchValue ? searchValue.split(' ') : []
     if (keywords.length === 0) {
       setAllMovies([], false, "")
