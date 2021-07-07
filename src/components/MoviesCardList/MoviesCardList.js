@@ -41,7 +41,13 @@ function MoviesCardList({movies, checkMovies, savedMovies, changePreloaderStatus
   }
 
   function handleMoreMovies() {
-    setCurrentList(movies.slice(0, currentList.length + cardCounterMore));
+    const cardsLeft = movies.length - currentList.length;
+    if (cardsLeft < cardCounterMore) {
+      setCurrentList(movies.slice(0, currentList.length + cardsLeft));
+      setShowMoreButton(false);
+    } else {
+      setCurrentList(movies.slice(0, currentList.length + cardCounterMore));
+    }
   };
 
   // React.useEffect(()=>{
