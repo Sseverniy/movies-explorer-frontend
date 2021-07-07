@@ -99,7 +99,8 @@ function SavedMovies({
   return (
     <>
       <section className="saved-movies">
-        <SearchForm />
+        <SearchForm setAllMovies={setAllMovies}/>
+        {error && <p className="movies__err">{error}</p>}
         {loading ? (
           <Preloader />
         ) : (
