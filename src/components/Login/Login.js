@@ -1,12 +1,11 @@
 import React from 'react';
 import "./Login.css";
 import SignHeader from "../SignHeader/SignHeader";
-import * as MainApi from "../../utils/MainApi";
+import Preloader from "../Preloader/Preloader";
 import { useFormHook } from "../../utils/useFormHook";
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-function Login({onLogin}) {
-  const history = useHistory();
+function Login({onLogin, preloader}) {
   const { values, handleChange, errors, isValid } = useFormHook();
 
   function handleSubmit(e) {
@@ -18,6 +17,8 @@ function Login({onLogin}) {
       <SignHeader 
         headerText="Рады видеть!"
       />
+      {!preloader ?
+      <>
       <form className="login-form" noValidate>
         <label htmlFor="user-email" className={`login-form__label ${errors.email ? 'login-form__label_error': ''}`}>E-mail
           <input onChange={handleChange} value={values.email || ''} name='email' id="user-email" className="login-form__input" type="email" required></input>
@@ -33,6 +34,7 @@ function Login({onLogin}) {
         <span className="login__paragraph">Еще не зарегистрированы? </span>
         <Link to="/signup" className="login__signin-link">Регистрация</Link>
       </div>
+      </>: <Preloader/> }
     </div>
   );
 }

@@ -1,32 +1,18 @@
 import React from 'react';
 import "./Register.css";
 import SignHeader from "../SignHeader/SignHeader";
-import * as MainApi from "../../utils/MainApi";
+import Preloader from "../Preloader/Preloader";
 import { useFormHook } from "../../utils/useFormHook";
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-function Register({signIn}) {
-  const history = useHistory();
+function Register({onRegister, preloader}) {
   const { values, handleChange, errors, isValid } = useFormHook();
 
   // const [registerSuccess, setRegisterSuccess] = React.useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
-    MainApi.register(values)
-      .then((res)=>{
-        if(res.statusCode !== 400){
-          console.log('Вы успешно зарегистрировались!');
-          // setRegisterSuccess(true);
-          signIn(values);
-          history.push('/movies');
-        } else {
-          console.log('Что-то пошло не так! Попробуйте ещё раз.');
-        }
-      })
-      .catch((err)=> {
-        console.log(err);
-      })
+    onRegister(values);
   }
 
   return (
@@ -34,6 +20,8 @@ function Register({signIn}) {
       <SignHeader 
         headerText="Добро пожаловать!"
       />
+      {!preloader ?
+      <>
       <form className="sign-form" noValidate>
         <label htmlFor="user-name" className={`sign-form__label ${errors.name ? 'sign-form__label_error' :''}`}>Имя
           <input onChange={handleChange} value={values.name || ''} name="name" id="user-name" className="sign-form__input" type="text" minLength="2" maxLength="40" required></input>
@@ -52,7 +40,8 @@ function Register({signIn}) {
       <div className="sign__wrapper">
         <span className="sign__paragraph">Уже зарегистрированы? </span>
         <Link to="/signin" className="sign__signin-link">Войти</Link>
-      </div>
+      </div> 
+      </> : <Preloader/>}
     </div>
   );
 }

@@ -1,4 +1,5 @@
-const BASE_URL = 'https://api.sseverniy-movies.nomoredomains.monster';
+// const BASE_URL = 'https://api.sseverniy-movies.nomoredomains.monster';
+const BASE_URL = 'http://localhost:3005';
 
 export const register = ({name, email, password}) => {
   return fetch(`${BASE_URL}/signup`, {

@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 export function useFormHook() {
   const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
-  const [isValid, setIsValid] = React.useState({});
+  const [isValid, setIsValid] = React.useState(false);
 
   const handleChange = (event) => {
     const target = event.target;

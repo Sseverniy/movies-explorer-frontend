@@ -29,6 +29,7 @@ function App() {
   const {width} = useViewport();
   const [cardCounter, setCardCounter] = React.useState(0);
   const [cardCounterMore, setCardCounterMore] = React.useState(0);
+  const [preloader, setPreloader] = React.useState(false);
 
   function checkWidth() {
     if (width > 995) {
@@ -55,6 +56,7 @@ function App() {
   }
 
   function handleSignIn(values) {
+    setPreloader(true);
     MainApi.login(values)
     .then((res)=>{
       if(res.statusCode !== 400){
@@ -68,15 +70,34 @@ function App() {
     .catch((err)=> {
       console.log(err);
     })
+    .finally(()=>setPreloader(false));
   }
 
-  function changeLoggedIn(values) {
-    if (loggedIn) {
-      handleSignOut();
-    } else {
-      handleSignIn(values);
-    }
+  function handleRegister(values) {
+    setPreloader(true);
+    MainApi.register(values)
+      .then((res)=>{
+        if(res.statusCode !== 400){
+          console.log('Вы успешно зарегистрировались!');
+          handleSignIn(values);
+          history.push('/movies');
+        } else {
+          console.log('Что-то пошло не так! Попробуйте ещё раз.');
+        }
+      })
+      .catch((err)=> {
+        console.log(err);
+      })
+      .finally(()=>setPreloader(false));
   }
+
+  // function changeLoggedIn(values) {
+  //   if (loggedIn) {
+  //     handleSignOut();
+  //   } else {
+  //     handleSignIn(values);
+  //   }
+  // }
 
   function toggleBurgerMenu() {
     setBurgerMenu(!burgerMenu);
@@ -188,12 +209,12 @@ function App() {
             </Route>
             <ProtectedRoute path="/movies" loggedIn={loggedIn} component={Movies} movies={movies} checkMovies={checkSavedMovies} savedMovies={savedMovies} cardCounter={cardCounter} cardCounterMore={cardCounterMore} saveMovie={saveMovie} deleteMovie={deleteMovie}/>
             <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} checkMovies={checkSavedMovies} savedMovies={savedMovies} movies={movies} deleteMovie={deleteMovie}/>
-            <ProtectedRoute path="/profile" loggedIn={loggedIn} onExit={handleSignOut} onUpdate={updateUserProfile} component={Profile} />
+            <ProtectedRoute path="/profile" onExit={handleSignOut} onUpdate={updateUserProfile} preloader={preloader} component={Profile} />
             <Route path="/signup">
-              <Register signIn={changeLoggedIn} />
+              <Register onRegister={handleRegister} preloader={preloader}/>
             </Route>
             <Route path="/signin">
-              <Login onLogin={handleSignIn} />
+              <Login onLogin={handleSignIn} preloader={preloader} />
             </Route>
             <Route path="/not-found">
               <NotFoundPage goBack={goBack} />
