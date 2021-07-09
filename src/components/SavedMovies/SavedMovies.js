@@ -4,22 +4,23 @@ import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
-import { getAllMovies } from "../../utils/MoviesApi";
+import { CurrentUserContext } from "../../contexts/UserContext";
 
 function SavedMovies({
   savedMovies,
   checkMovies,
-  changePreloaderStatus,
   cardCounter,
   cardCounterMore,
   movies,
   deleteMovie,
 }) {
-  // const [savedMoviesList, setSavedMoviesList] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-
-  const [moviesList, setMoviesList] = React.useState(movies);
+  const [savedMoviesList, setSavedMoviesList] = React.useState(savedMovies)
   const [error, setError] = React.useState("");
+  const currentUser = React.useContext(CurrentUserContext);
+  
+  const [currentList, setCurrentList] = React.useState(savedMovies);
+  const [showMoreButton, setShowMoreButton] = React.useState(false);
 
   function searchMoviesByKeywords(movies, keywords, duration) {
     return Array.from(movies).filter((movie) => {
@@ -34,84 +35,57 @@ function SavedMovies({
   function setAllMovies(keywords, duration) {
     if (keywords.length === 0) {
       setError("Введите ключевое слово");
-      setMoviesList(movies);
-      localStorage.removeItem("movies");
+      setSavedMoviesList(savedMovies);
     } else {
       setError("");
       setLoading(true);
-      getAllMovies()
-        .then((res) => {
-          const chosenMovies = searchMoviesByKeywords(res, keywords, duration);
-          if (chosenMovies.length > 0) {
-            setMoviesList(
-              chosenMovies.map((card) => ({
-                country: card.country,
-                movieId: card.id,
-                director: card.director,
-                duration: card.duration,
-                year: card.year,
-                description: card.description,
-                image: `https://api.nomoreparties.co${card.image.url}`,
-                trailer: card.trailerLink,
-                thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
-                nameRU: card.nameRU,
-                nameEN: card.nameEN,
-              }))
-            );
-            localStorage.setItem(
-              "movies",
-              JSON.stringify(
-                chosenMovies.map((card) => ({
-                  country: card.country,
-                  movieId: card.id,
-                  director: card.director,
-                  duration: card.duration,
-                  year: card.year,
-                  description: card.description,
-                  image: `https://api.nomoreparties.co${card.image.url}`,
-                  trailer: card.trailerLink,
-                  thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
-                  nameRU: card.nameRU,
-                  nameEN: card.nameEN,
-                }))
-              )
-            );
-          } else {
-            setMoviesList(movies);
-            setError("Ничего не найдено");
-          }
-        })
-        .catch(() => {
-          setError(
-            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-          );
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      const chosenMovies = searchMoviesByKeywords(savedMovies, keywords, duration);
+      if (chosenMovies.length > 0) {
+        setSavedMoviesList(chosenMovies);
+        localStorage.setItem(
+          "saved-movies",
+          JSON.stringify(chosenMovies)
+        );
+      } else {
+        setSavedMoviesList(savedMovies);
+        setError("Ничего не найдено");
+        debugger;
+      }
+      setLoading(false);
     }
+  
   }
 
   function changePreloaderStatus(status) {
     setLoading(status);
   }
 
+  const checkOwner = savedMoviesList.filter((card)=>{
+    if (currentUser._id === card.owner) {
+      return card
+    } 
+  });
+
   return (
     <>
       <section className="saved-movies">
         <SearchForm setAllMovies={setAllMovies}/>
-        {error && <p className="movies__err">{error}</p>}
         {loading ? (
           <Preloader />
-        ) : (
+        ) : ( error ? <p className="saved-movies__err">{error}</p> :
           <MoviesCardList
-            movies={moviesList}
+            movies={movies}
             savedMovies={savedMovies}
             checkMovies={checkMovies}
             changePreloaderStatus={changePreloaderStatus}
             cardCounter={cardCounter}
             cardCounterMore={cardCounterMore}
             deleteMovie={deleteMovie}
+            checkOwner={checkOwner}
+            currentList={currentList}
+            setCurrentList={setCurrentList}
+            setShowMoreButton={setShowMoreButton}
+            showMoreButton={showMoreButton}
           />
         )}
       </section>

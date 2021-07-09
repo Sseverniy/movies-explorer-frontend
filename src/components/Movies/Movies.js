@@ -18,6 +18,8 @@ function Movies({
   const [loading, setLoading] = React.useState(false);
   const [moviesList, setMoviesList] = React.useState(movies);
   const [error, setError] = React.useState("");
+  const [currentList, setCurrentList] = React.useState(movies);
+  const [showMoreButton, setShowMoreButton] = React.useState(false);
 
   function searchMoviesByKeywords(movies, keywords, duration) {
     return Array.from(movies).filter((movie) => {
@@ -98,10 +100,10 @@ function Movies({
     <>
       <section className="movies">
         <SearchForm setAllMovies={setAllMovies} />
-        {error && <p className="movies__err">{error}</p>}
+        
         {loading ? (
           <Preloader />
-        ) : (
+        ) : ( error ? <p className="movies__err">{error}</p> :
           <MoviesCardList
             movies={moviesList}
             savedMovies={savedMovies}
@@ -111,6 +113,10 @@ function Movies({
             cardCounterMore={cardCounterMore}
             saveMovie={saveMovie}
             deleteMovie={deleteMovie}
+            currentList={currentList}
+            setCurrentList={setCurrentList}
+            setShowMoreButton={setShowMoreButton}
+            showMoreButton={showMoreButton}
           />
         )}
       </section>

@@ -1,17 +1,12 @@
 import React from 'react';
 import "./MoviesCard.css";
 import {useLocation} from "react-router-dom";
-import * as MainApi from "../../utils/MainApi";
 
 function MoviesCard({isSaved, savedMovies, movie, checkMovies, changePreloaderStatus, saveMovie, deleteMovie}) {
   const location = useLocation();
-  // const imgUrl = `https://api.nomoreparties.co${movie.image}`;
-  // const thumbnail = `https://api.nomoreparties.co${movie.thumbnail}`;
   const movieDuration = new Date(1000 * movie.duration).toISOString().substr(11, 8).replace(/^[0:]+/, "");
 
   const [isMovieSaved, setIsMovieSaved] = React.useState(isSaved? true : false);
-
-  const [newMovieId, setNewMovieId] = React.useState();
 
   function handleSaveStatus(movie, savedMovies) {
     if (!isMovieSaved || !isSaved) {
@@ -42,7 +37,6 @@ function MoviesCard({isSaved, savedMovies, movie, checkMovies, changePreloaderSt
   function setMovieId() {
     changePreloaderStatus(true);
     const movieID = savedMovies.find((item)=> {
-      debugger
       if (item.movieId === movie.movieId) {
        return item._id;
       } else {
@@ -74,15 +68,6 @@ function MoviesCard({isSaved, savedMovies, movie, checkMovies, changePreloaderSt
     .catch((err)=>console.log(err))
     .finally(()=>changePreloaderStatus(false))
   }
-
-  // function checkSavedMovies(){
-  //   checkMovies();
-  // };
-
-  // React.useEffect(()=>{
-  //   checkSavedMovies();
-  // }, [])
-
 
   return (
     location.pathname === "/saved-movies" ?

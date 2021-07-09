@@ -51,8 +51,10 @@ function App() {
   function handleSignOut(){
     localStorage.removeItem("jwt");
     localStorage.removeItem("movies");
+    localStorage.removeItem("saved-movies");
     setLoggedIn(false);
-    history.push('/signin');
+    debugger;
+    history.push("/signin");
   }
 
   function handleSignIn(values) {
@@ -140,6 +142,10 @@ function App() {
     const jwt = localStorage.getItem("jwt");
     MainApi.getSavedMovies(jwt)
     .then((cards) => {
+      if (localStorage.getItem("saved-movies")) {
+        setSavedMovies(JSON.parse(localStorage.getItem("saved-movies")));
+        console.log(localStorage.getItem("saved-movies"))
+      } 
       setSavedMovies(cards);
     })
     .catch((err)=>console.log(err));
@@ -151,23 +157,21 @@ function App() {
         if (localStorage.getItem("movies")) {
           setMovies(JSON.parse(localStorage.getItem("movies")));
           setIsLoaded(true);
-        } else {
-          setMovies(cards.map((card) =>({
-            country: card.country,
-            movieId: card.id,
-            director: card.director,
-            duration: card.duration,
-            year: card.year,
-            description: card.description,
-            image: `https://api.nomoreparties.co${card.image.url}`,
-            trailer: card.trailerLink,
-            thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
-            nameRU: card.nameRU,
-            nameEN: card.nameEN,
-          }
-          )))
-          setIsLoaded(true);
-        }
+        } 
+        setMovies(cards.map((card) =>({
+          country: card.country,
+          movieId: card.id,
+          director: card.director,
+          duration: card.duration,
+          year: card.year,
+          description: card.description,
+          image: `https://api.nomoreparties.co${card.image.url}`,
+          trailer: card.trailerLink,
+          thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
+          nameRU: card.nameRU,
+          nameEN: card.nameEN,
+        })))
+        setIsLoaded(true);
       })
       .catch((err) => {console.log(err)});
   },[]);
@@ -176,6 +180,9 @@ function App() {
     if(loggedIn) {
       MainApi.getSavedMovies(localStorage.getItem("jwt"))
       .then((cards)=> {
+        if (localStorage.getItem("saved-movies")) {
+          setSavedMovies(JSON.parse(localStorage.getItem("saved-movies")));
+        } 
         setSavedMovies(cards);
       })
       .catch((err)=>console.log(err));
@@ -208,8 +215,8 @@ function App() {
               <Main loggedIn={loggedIn} />
             </Route>
             <ProtectedRoute path="/movies" loggedIn={loggedIn} component={Movies} movies={movies} checkMovies={checkSavedMovies} savedMovies={savedMovies} cardCounter={cardCounter} cardCounterMore={cardCounterMore} saveMovie={saveMovie} deleteMovie={deleteMovie}/>
-            <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} checkMovies={checkSavedMovies} savedMovies={savedMovies} movies={movies} deleteMovie={deleteMovie}/>
-            <ProtectedRoute path="/profile" onExit={handleSignOut} onUpdate={updateUserProfile} preloader={preloader} component={Profile} />
+            <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} checkMovies={checkSavedMovies} savedMovies={savedMovies} cardCounter={cardCounter} cardCounterMore={cardCounterMore} movies={movies} deleteMovie={deleteMovie}/>
+            <ProtectedRoute path="/profile" loggedIn={loggedIn} onExit={handleSignOut} onUpdate={updateUserProfile} preloader={preloader} component={Profile} />
             <Route path="/signup">
               <Register onRegister={handleRegister} preloader={preloader}/>
             </Route>
