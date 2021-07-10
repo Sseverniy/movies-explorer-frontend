@@ -8,7 +8,7 @@ function Header({loggedIn, openBurgerMenu, burgerMenu}) {
 
   return (
     (location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/not-found") ?
-    '' : location.pathname === "/" ?
+    '' : !loggedIn ?
     <header className="header">
       <Link to="/" className="header__logo" />
       <Navigation loggedIn={loggedIn} burgerMenu={burgerMenu}/>

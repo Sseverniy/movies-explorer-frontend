@@ -4,7 +4,6 @@ import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
-import { CurrentUserContext } from "../../contexts/UserContext";
 
 function SavedMovies({
   savedMovies,
@@ -17,10 +16,8 @@ function SavedMovies({
   const [loading, setLoading] = React.useState(false);
   const [savedMoviesList, setSavedMoviesList] = React.useState(savedMovies)
   const [error, setError] = React.useState("");
-  const currentUser = React.useContext(CurrentUserContext);
-  
   const [currentList, setCurrentList] = React.useState(savedMovies);
-  const [showMoreButton, setShowMoreButton] = React.useState(false);
+  const [showMoreButton, setShowMoreButton] = React.useState(savedMovies.length>cardCounter ? true :false);
 
   function searchMoviesByKeywords(movies, keywords, duration) {
     return Array.from(movies).filter((movie) => {
@@ -36,6 +33,7 @@ function SavedMovies({
     if (keywords.length === 0) {
       setError("Введите ключевое слово");
       setSavedMoviesList(savedMovies);
+      localStorage.removeItem("saved-movies");
     } else {
       setError("");
       setLoading(true);
@@ -46,12 +44,19 @@ function SavedMovies({
           "saved-movies",
           JSON.stringify(chosenMovies)
         );
+        setTimeout(()=>{
+          setLoading(false);
+        }, 400)
       } else {
         setSavedMoviesList(savedMovies);
         setError("Ничего не найдено");
-        debugger;
+        setTimeout(()=>{
+          setLoading(false);
+        }, 400)
       }
-      setLoading(false);
+      setTimeout(()=>{
+        setLoading(false);
+      }, 400)
     }
   
   }
@@ -60,11 +65,19 @@ function SavedMovies({
     setLoading(status);
   }
 
-  const checkOwner = savedMoviesList.filter((card)=>{
-    if (currentUser._id === card.owner) {
-      return card
-    } 
-  });
+  // const checkOwner = savedMoviesList.filter((card)=>{
+  //   if (currentUser._id === card.owner) {
+  //     return card
+  //   } 
+  // });
+
+  React.useEffect(()=>{
+    setLoading(true);
+    checkMovies();
+    setTimeout(()=>{
+      setLoading(false);
+    }, 400)
+  },[]);
 
   return (
     <>
@@ -81,11 +94,12 @@ function SavedMovies({
             cardCounter={cardCounter}
             cardCounterMore={cardCounterMore}
             deleteMovie={deleteMovie}
-            checkOwner={checkOwner}
+            // checkOwner={checkOwner}
             currentList={currentList}
             setCurrentList={setCurrentList}
             setShowMoreButton={setShowMoreButton}
             showMoreButton={showMoreButton}
+            savedMoviesList={savedMoviesList}
           />
         )}
       </section>

@@ -2,6 +2,7 @@ import React from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
+import {CurrentUserContext} from "../../contexts/UserContext"
 
 function MoviesCardList({
   movies,
@@ -12,22 +13,26 @@ function MoviesCardList({
   cardCounterMore,
   saveMovie,
   deleteMovie,
-  checkOwner,
+  // checkOwner,
   currentList,
   setCurrentList,
-  showMoreButton, 
-  setShowMoreButton
+  // showMoreButton, 
+  // setShowMoreButton,
+  savedMoviesList
 }) {
   const location = useLocation();
+  const currentUser = React.useContext(CurrentUserContext);
 
-  // const [showMoreButton, setShowMoreButton] = React.useState(false);
+  const [showMoreButton, setShowMoreButton] = React.useState(false);
 
   function setMoviesList(movies) {
     const newList = movies.slice(0, cardCounter);
     if (newList.length === 0) {
       setCurrentList(movies);
+
     } else {
       setCurrentList(newList);
+
     }
   }
 
@@ -59,39 +64,42 @@ function MoviesCardList({
       setShowMoreButton(false);
     } else {
       setCurrentList(movies.slice(0, currentList.length + cardCounterMore));
+      setShowMoreButton(true);
     }
   }
 
   React.useEffect(() => {
     if (location.pathname === "/saved-movies") {
-      if (checkOwner.length > cardCounter) {
+      if (savedMoviesList.length > cardCounter) {
         setShowMoreButton(true);
       } else {
         setShowMoreButton(false);
       }
     } else {
-      setShowMoreButton(currentList.length > cardCounter ? true : false);
+      setShowMoreButton(movies.length > cardCounter ? true : false);
     }
-  }, []);
+  }, [cardCounter]);
 
   React.useEffect(() => {
     if (location.pathname === "/saved-movies") {
-      setMoviesList(checkOwner);
+      setMoviesList(savedMoviesList);
+      console.log(savedMoviesList)
     } else {
       setMoviesList(movies);
     }
-  }, [cardCounter]);
+  }, []);
 
   return (
     <>
       <ul className="movies-list">
-        {currentList.length === 0 ? (
-          <p className="movies-error">Фильмы не найдены</p>
-        ) : location.pathname === "/movies" ? (
+        {/* {currentList.length === 0 || savedMoviesList.length === 0 ? (
+          <p className="movies-error">Фильмы не найдены</p> */}
+        {/* ) :  */}
+        {location.pathname === "/movies" ? (
           currentList.map((movie) => {
             let isSaved = false;
             const isMovieSaved = savedMovies.filter((card) => {
-              if (card.nameRU === movie.nameRU) {
+              if (card.nameRU === movie.nameRU && card.owner === currentUser._id) {
                 return card;
               }
             });
@@ -114,17 +122,19 @@ function MoviesCardList({
           })
         ) : currentList.length > 0 ? (
           currentList.map((movie) => {
-            return (
-              <MoviesCard
-                key={movie.movieId}
-                savedMovies={savedMovies}
-                checkMovies={checkMovies}
-                movie={movie}
-                changePreloaderStatus={changePreloaderStatus}
-                saveMovie={saveMovie}
-                deleteMovie={deleteMovie}
-              />
-            );
+            if (movie.owner === currentUser._id) {
+              return (
+                <MoviesCard
+                  key={movie.movieId}
+                  savedMovies={savedMovies}
+                  checkMovies={checkMovies}
+                  movie={movie}
+                  changePreloaderStatus={changePreloaderStatus}
+                  saveMovie={saveMovie}
+                  deleteMovie={deleteMovie}
+                />
+              );
+            }
           })
         ) : (
           <p className="movies-error">Сохраненных фильмов нет</p>
@@ -135,7 +145,7 @@ function MoviesCardList({
           className="movies__more-button"
           type="button"
           aria-label="Открыть больше фильмов"
-          onClick={location.pathname === "/movies" ? ()=>handleMoreMovies(movies) : ()=>handleMoreMovies(checkOwner)}
+          onClick={location.pathname === "/movies" ? ()=>handleMoreMovies(movies) : ()=>handleMoreMovies(savedMovies)}
         >
           Еще
         </button>

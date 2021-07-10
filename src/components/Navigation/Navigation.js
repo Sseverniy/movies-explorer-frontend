@@ -6,7 +6,7 @@ import profileLogo from "../../images/profile-logo.svg"
 function Navigation({loggedIn, burgerMenu, closeBurgerMenu}) {
   const location = useLocation();
   return (
-    location.pathname === "/" ? (
+    location.pathname === "/" && !loggedIn ? (
     <div className="navigate__wrapper">
       <Link to="/signup" className="navigate__register-link link">Регистрация</Link>
       <Link to="/signin" className="navigate__login-link link">Войти</Link>

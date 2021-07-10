@@ -142,11 +142,11 @@ function App() {
     const jwt = localStorage.getItem("jwt");
     MainApi.getSavedMovies(jwt)
     .then((cards) => {
-      if (localStorage.getItem("saved-movies")) {
+      if(localStorage.getItem("saved-movies")) {
         setSavedMovies(JSON.parse(localStorage.getItem("saved-movies")));
-        console.log(localStorage.getItem("saved-movies"))
-      } 
-      setSavedMovies(cards);
+      }
+      const filteredData = cards.filter((card)=> card.owner === currentUser._id);
+      setSavedMovies(filteredData);
     })
     .catch((err)=>console.log(err));
   }
@@ -177,17 +177,16 @@ function App() {
   },[]);
   
   React.useEffect(() => {
-    if(loggedIn) {
+    if (loggedIn) {
       MainApi.getSavedMovies(localStorage.getItem("jwt"))
       .then((cards)=> {
-        if (localStorage.getItem("saved-movies")) {
-          setSavedMovies(JSON.parse(localStorage.getItem("saved-movies")));
-        } 
-        setSavedMovies(cards);
+        const filteredData = cards.filter((card)=> card.owner === currentUser._id);
+        setSavedMovies(filteredData);
       })
       .catch((err)=>console.log(err));
     }
-  },[loggedIn, history, cardCounter]);
+    
+  },[loggedIn, history]);
 
   React.useEffect(() => {
     tokenCheck();
@@ -214,8 +213,8 @@ function App() {
             <Route path="/" exact>
               <Main loggedIn={loggedIn} />
             </Route>
-            <ProtectedRoute path="/movies" loggedIn={loggedIn} component={Movies} movies={movies} checkMovies={checkSavedMovies} savedMovies={savedMovies} cardCounter={cardCounter} cardCounterMore={cardCounterMore} saveMovie={saveMovie} deleteMovie={deleteMovie}/>
-            <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} checkMovies={checkSavedMovies} savedMovies={savedMovies} cardCounter={cardCounter} cardCounterMore={cardCounterMore} movies={movies} deleteMovie={deleteMovie}/>
+            <ProtectedRoute path="/movies" loggedIn={loggedIn} component={Movies} preloader={preloader} setPreloader={setPreloader} movies={movies} checkMovies={checkSavedMovies} savedMovies={savedMovies} cardCounter={cardCounter} cardCounterMore={cardCounterMore} saveMovie={saveMovie} deleteMovie={deleteMovie}/>
+            <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} preloader={preloader} setPreloader={setPreloader} checkMovies={checkSavedMovies} savedMovies={savedMovies} cardCounter={cardCounter} cardCounterMore={cardCounterMore} movies={movies} deleteMovie={deleteMovie}/>
             <ProtectedRoute path="/profile" loggedIn={loggedIn} onExit={handleSignOut} onUpdate={updateUserProfile} preloader={preloader} component={Profile} />
             <Route path="/signup">
               <Register onRegister={handleRegister} preloader={preloader}/>

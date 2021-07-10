@@ -14,7 +14,6 @@ function MoviesCard({isSaved, savedMovies, movie, checkMovies, changePreloaderSt
     } else {
       setMovieId();
     }
-
   }
 
   function handleSaveMovie(movie) {
@@ -23,15 +22,18 @@ function MoviesCard({isSaved, savedMovies, movie, checkMovies, changePreloaderSt
     saveMovie(jwt, movie)
     .then((res)=>{
       if (res.statusCode !== 400) {
-        checkMovies();
         setIsMovieSaved(true);
         console.log("Вы успешно сохранили фильм");
+        checkMovies();
       } else {
         setIsMovieSaved(false);
       }
     })
     .catch((err)=>console.log(err))
-    .finally(()=>{changePreloaderStatus(false)});
+    .finally(()=>{
+      setTimeout(()=>{
+      changePreloaderStatus(false);
+    }, 400)});
   }
 
   function setMovieId() {
@@ -66,7 +68,10 @@ function MoviesCard({isSaved, savedMovies, movie, checkMovies, changePreloaderSt
       }
     })
     .catch((err)=>console.log(err))
-    .finally(()=>changePreloaderStatus(false))
+    .finally(()=>{
+      setTimeout(()=>{
+      changePreloaderStatus(false);
+    }, 400)})
   }
 
   return (
