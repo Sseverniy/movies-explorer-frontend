@@ -106,12 +106,14 @@ function App() {
   }
 
   function updateUserProfile(data) {
+    setPreloader(true);
     MainApi.updateUserInfo(localStorage.getItem("jwt"), data)
     .then((updatedData) => {
       setCurrentUser(updatedData);
       setLoggedIn(true);
     })
     .catch((err)=> console.log(err))
+    .finally(()=>setPreloader(false));
   }
 
   function saveMovie(token, movie) {
