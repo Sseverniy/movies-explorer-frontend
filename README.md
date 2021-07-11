@@ -1,4 +1,7 @@
 # Getting Started with Create React App
+доменное имя сервиса https://sseverniy-movies.nomoredomains.club   
+доменное имя сервера https://api.sseverniy-movies.nomoredomains.monster
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
